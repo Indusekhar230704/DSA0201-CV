@@ -1,0 +1,23 @@
+import cv2
+import numpy as np
+
+# Load the input image
+img = cv2.imread("C:/Users/aspi/Downloads/abcd.jpg")
+
+# Define the four corners of the object in the input image
+input_pts = np.array([(141, 131), (480, 159), (493, 630), (64, 601)])
+
+# Define the corresponding four corners of the object in the output image
+output_pts = np.array([(0, 0), (400, 0), (400, 600), (0, 600)])
+
+# Compute the homography matrix
+homography, _ = cv2.findHomography(input_pts, output_pts)
+
+# Apply the homography transformation to the input image
+output_img = cv2.warpPerspective(img, homography, (400, 600))
+
+# Display the input and output images
+cv2.imshow("Input Image", img)
+cv2.imshow("Output Image", output_img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
